@@ -39,8 +39,8 @@
 		}
 		return false;
 	};
-	// Run by default only on vi.se, or if the post tags contain `vim`.
-	if (window.location.hostname != "vi.stackexchange.com" && !tagsIncludeVim()) {
+	// Run by default only on (meta)vi.se, or if the post tags contain `vim`.
+	if (!window.location.hostname.endsWith("vi.stackexchange.com") && !tagsIncludeVim()) {
 		console.log('Not highlighting!');
 		return;
 	}
@@ -77,7 +77,8 @@
 		*/
 		StackExchange.using('prettify', function () {
 			document.body.appendChild(langscript);
-			setLanguage();
+			observer = new MutationObserver(setLanguage);
+			observer.observe(document.body, {childList: true});
 		});
 	};
 	xhr.open("GET", "https://raw.githubusercontent.com/hail2u/google-code-prettify-language-handlers/master/lang-vim.js", true);
