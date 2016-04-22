@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           SE Prettify Extension Includer
 // @author         Murukesh Mohanan (murukesh.mohanan+github@gmail.com)
-// @version        0.2
+// @version        0.3
 // @namespace      github.com/vi-se
 // @description    Add extensions to Google Prettify on Stack Exchange sites
 // @include        http://*.stackexchange.com/*
@@ -78,7 +78,9 @@
 		*/
 		StackExchange.using('prettify', function () {
 			document.body.appendChild(langscript);
-			observer = new MutationObserver(setLanguage);
+			observer = new MutationObserver(function () {
+				setLanguage('vim')
+			};);
 			observer.observe(document.body, {childList: true});
 		});
 	};
