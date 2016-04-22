@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           SE Prettify Extension Includer
 // @author         Murukesh Mohanan (murukesh.mohanan+github@gmail.com)
-// @version        0.1
+// @version        0.2
 // @namespace      github.com/vi-se
 // @description    Add extensions to Google Prettify on Stack Exchange sites
 // @include        http://*.stackexchange.com/*
@@ -29,30 +29,31 @@
 	document.body.appendChild(script);
 })(function () {
 	// Helper to check if post tags contain `vim`
-	var tagsIncludeVim = function () {
+	var tagsInclude = function (word) {
 		var tags = document.getElementsByClassName('post-tag');
 		for (var i = 0; i < tags.length; i++) {
 			var t = tags[i];
-			if (t.textContent.includes("vim")) {
+			if (t.textContent.includes(word)) {
 				return true;
 			}
 		}
 		return false;
 	};
 	// Run by default only on (meta)vi.se, or if the post tags contain `vim`.
-	if (!window.location.hostname.endsWith("vi.stackexchange.com") && !tagsIncludeVim()) {
+	if (!window.location.hostname.endsWith("vi.stackexchange.com") && !tagsInclude('vim')) {
 		console.log('Not highlighting!');
 		return;
 	}
 
-	var setLanguage = function () {
+	var setLanguage = function (lang) {
+		var className = 'lang-' + lang + ' prettyprint';
 		var pres = document.getElementsByTagName('pre');
 		for (var i = 0; i < pres.length; i++) {
 			var p = pres[i];
 			if (/prettyprint(?:ed|-override)/.test(p.className)) {
 				continue;
 			}
-			p.className = 'lang-vim prettyprint';
+			p.className = className;
 		}
 		prettyPrint();
 	};
@@ -81,6 +82,6 @@
 			observer.observe(document.body, {childList: true});
 		});
 	};
-	xhr.open("GET", "https://raw.githubusercontent.com/hail2u/google-code-prettify-language-handlers/master/lang-vim.js", true);
+	xhr.open("GET", "https://raw.githubusercontent.com/vi-se/PrettifyExtender/master/lang-vim.js", true);
 	xhr.send();
 });
