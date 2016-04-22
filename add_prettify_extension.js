@@ -28,6 +28,8 @@
 	// run the script after other scripts
 	document.body.appendChild(script);
 })(function () {
+	var lang = 'vim';
+	var langurl = "https://raw.githubusercontent.com/vi-se/PrettifyExtender/master/lang-vim.js";
 	// Helper to check if post tags contain `vim`
 	var tagsInclude = function (word) {
 		var tags = document.getElementsByClassName('post-tag');
@@ -40,7 +42,7 @@
 		return false;
 	};
 	// Run by default only on (meta)vi.se, or if the post tags contain `vim`.
-	if (!window.location.hostname.endsWith("vi.stackexchange.com") && !tagsInclude('vim')) {
+	if (!window.location.hostname.endsWith("vi.stackexchange.com") && !tagsInclude(lang)) {
 		console.log('Not highlighting!');
 		return;
 	}
@@ -79,11 +81,11 @@
 		StackExchange.using('prettify', function () {
 			document.body.appendChild(langscript);
 			observer = new MutationObserver(function () {
-				setLanguage('vim')
-			};);
+				setLanguage(lang);
+			});
 			observer.observe(document.body, {childList: true});
 		});
 	};
-	xhr.open("GET", "https://raw.githubusercontent.com/vi-se/PrettifyExtender/master/lang-vim.js", true);
+	xhr.open("GET", langurl, true);
 	xhr.send();
 });
