@@ -4,12 +4,12 @@
 // @version        0.3
 // @namespace      github.com/vi-se
 // @description    Add extensions to Google Prettify on Stack Exchange sites
-// @include        http://*.stackexchange.com/*
-// @include        http://stackoverflow.com/*
-// @include        http://askubuntu.com/*
-// @include        http://superuser.com/*
-// @include        http://serverfault.com/*
-// @include        http://meta.vi.stackexchange.com/*
+// @include        *://*.stackexchange.com/*
+// @include        *://stackoverflow.com/*
+// @include        *://askubuntu.com/*
+// @include        *://superuser.com/*
+// @include        *://serverfault.com/*
+// @include        *://*.meta.stackexchange.com/*
 // @license        GPLv3
 // @website        https://github.com/vi-se/PrettifyExtender
 // @grant          none
